@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to my corner on the internet :)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: #E8D5B3;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background: #E8D5B3;
+      font-family: 'Nunito', 'Comic Sans MS', 'Comic Sans', cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100svh;
+      width: 100%;
+      overflow-x: hidden;
+      padding: 72px 24px 56px;
+    }
+
+    .container {
+      max-width: 560px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 44px;
+    }
+
+    /* Pull heading closer to mascot */
+    .mascot + .heading {
+      margin-top: -20px;
+    }
+
+    /* Mascot */
+    .mascot {
+      width: 72px;
+      height: auto;
+      display: block;
+      animation: mascot-float 4s ease-in-out infinite;
+    }
+    @keyframes mascot-float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    /* Heading */
+    .heading {
+      font-family: 'Nunito', 'Comic Sans MS', 'Comic Sans', cursive;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: #5c4f3a;
+      text-align: center;
+      line-height: 1.3;
+      letter-spacing: 0.01em;
+      animation: heading-fade-in 0.8s ease-out both;
+    }
+    @keyframes heading-fade-in {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 2x2 icon grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 72px;
+      row-gap: 52px;
+      justify-items: center;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Glow card wrapper — holds ::before/::after outside overflow:hidden */
+    .glow-card {
+      position: relative;
+      width: 132px;
+      height: 132px;
+      flex-shrink: 0;
+      border-radius: 28px;
+      box-shadow:
+        0 1px 3px rgba(90,60,20,0.08),
+        0 6px 16px rgba(90,60,20,0.10),
+        0 20px 40px rgba(90,60,20,0.07);
+      --radius: 28;
+      --border: 2;
+      --border-size: calc(var(--border) * 1px);
+      --spotlight-size: 220px;
+      --base: 30;
+      --spread: 220;
+      --hue: calc(var(--base) + (var(--xp, 0) * var(--spread)));
+    }
+
+    .glow-card::before,
+    .glow-card::after {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      inset: calc(var(--border-size) * -1);
+      border: var(--border-size) solid transparent;
+      border-radius: calc(var(--radius) * 1px);
+      background-attachment: fixed;
+      background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+      mask-clip: padding-box, border-box;
+      mask-composite: intersect;
+      -webkit-mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+      -webkit-mask-clip: padding-box, border-box;
+      -webkit-mask-composite: destination-in;
+    }
+
+    .glow-card::before {
+      background-image: radial-gradient(
+        var(--spotlight-size) var(--spotlight-size) at
+        calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+        rgba(92, 79, 58, 0.95), transparent 100%
+      );
+      filter: brightness(2);
+    }
+
+    .glow-card::after {
+      background-image: radial-gradient(
+        calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+        calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+        rgba(92, 79, 58, 0.6), transparent 100%
+      );
+    }
+
+    .icon-wrap {
+      width: 100%;
+      height: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #FDF3E3;
+      isolation: isolate;
+    }
+
+.icon-wrap img, .icon-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .icon-wrap img {
+      object-fit: contain;
+    }
+
+    .item:active .icon-wrap {
+      transform: scale(0.97);
+    }
+
+    .label {
+      background: #FDF3E3;
+      border-radius: 100px;
+      padding: 7px 20px;
+      font-family: 'Nunito', 'Comic Sans MS', 'Comic Sans', cursive;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #4a3f2e;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      transition: background 0.2s ease;
+    }
+
+    .item:hover .label {
+      background: rgba(196, 168, 120, 0.7);
+    }
+
+    .scramble-char {
+      display: inline-block;
+      transition: color 0.12s ease, transform 0.12s ease;
+    }
+
+    .scramble-char.scrambling {
+      color: rgba(90, 60, 20, 0.45);
+      transform: scaleY(1.15);
+    }
+
+    /* Bio */
+    .bio {
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: #7a6e5a;
+      max-width: 460px;
+      font-weight: 400;
+      animation: bio-fade-in 1s ease-out 0.3s both;
+    }
+    @keyframes bio-fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Dots */
+    .dots-wrap {
+      background: rgba(196, 168, 120, 0.38);
+      border-radius: 100px;
+      padding: 10px 18px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(90, 75, 50, 0.45);
+    }
+
+    /* ---- Icon animations ---- */
+    .icon-portal-oval {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: portal-pulse 3s ease-in-out infinite;
+    }
+    @keyframes portal-pulse {
+      0%, 100% { transform: rotate(-18deg) scale(1); }
+      50%       { transform: rotate(-18deg) scale(1.1); }
+    }
+    .icon-portal-star {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: portal-star-spin 7s linear infinite;
+    }
+    @keyframes portal-star-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .icon-eye-l, .icon-eye-r {
+      transform-box: fill-box;
+      transform-origin: center bottom;
+      animation: eye-blink 4.5s ease-in-out infinite;
+    }
+    .icon-eye-r { animation-delay: 0.06s; }
+    @keyframes eye-blink {
+      0%, 85%, 95%, 100% { transform: scaleY(1); }
+      90%                 { transform: scaleY(0.05); }
+    }
+
+    .cube-tl { animation: cube-bounce 2s ease-in-out infinite; animation-delay: 0s; }
+    .cube-tr { animation: cube-bounce 2s ease-in-out infinite; animation-delay: 0.2s; }
+    .cube-bl { animation: cube-bounce 2s ease-in-out infinite; animation-delay: 0.4s; }
+    .cube-br { animation: cube-bounce 2s ease-in-out infinite; animation-delay: 0.6s; }
+    @keyframes cube-bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .yt-play {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: yt-pulse 2s ease-in-out infinite;
+    }
+    @keyframes yt-pulse {
+      0%, 100% { transform: scale(1);    opacity: 1; }
+      50%       { transform: scale(1.15); opacity: 0.85; }
+    }
+
+    /* Skool: gentle float */
+    .anim-float {
+      animation: icon-float 4s ease-in-out infinite;
+    }
+    @keyframes icon-float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-9px); }
+    }
+
+    /* Kursy monk: personality sway */
+    .anim-sway {
+      animation: icon-sway 3.2s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+    @keyframes icon-sway {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      25%       { transform: rotate(-6deg) translateY(-3px); }
+      75%       { transform: rotate(6deg) translateY(-3px); }
+    }
+
+    /* Newsletter: flap lifts open then closes */
+    .newsletter-flap {
+      transform-box: fill-box;
+      transform-origin: top center;
+      animation: flap-lift 3.5s ease-in-out infinite;
+    }
+    .newsletter-fold {
+      transform-box: fill-box;
+      transform-origin: top center;
+      animation: flap-lift 3.5s ease-in-out infinite;
+    }
+    @keyframes flap-lift {
+      0%, 45%, 100% { transform: scaleY(1);   opacity: 1; }
+      20%            { transform: scaleY(-0.6); opacity: 0.7; }
+    }
+
+    /* YouTube: screen brightness breathes */
+    .yt-screen {
+      animation: screen-breathe 2.5s ease-in-out infinite;
+    }
+    @keyframes screen-breathe {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.75; }
+    }
+
+    @media (max-width: 480px) {
+      .heading { font-size: 1.25rem; }
+      .grid { column-gap: 28px; row-gap: 36px; }
+      .glow-card { width: 108px; height: 108px; border-radius: 22px; }
+      .glow-card::before, .glow-card::after { border-radius: calc(22px + var(--border-size)); }
+      .icon-wrap { border-radius: 22px; }
+      .label { font-size: 0.85rem; padding: 6px 14px; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <img src="character.png" class="mascot" alt="mascot">
+
+    <h1 class="heading">anty-kołcz i twój kumpel w jednym.</h1>
+
+    <div class="grid">
+
+      <!-- Skool — real logo image -->
+      <a href="https://skool.serioproste.com/" target="_blank" rel="noopener" class="item">
+        <div class="glow-card">
+          <div class="icon-wrap">
+            <img src="skool-logo.png" alt="Skool logo" class="anim-float" style="mix-blend-mode:multiply;">
+          </div>
+        </div>
+        <span class="label">Społeczność</span>
+      </a>
+
+      <!-- Kursy — monk character image (swapped to top-right) -->
+      <a href="https://programy.serioproste.com/courses" target="_blank" rel="noopener" class="item">
+        <div class="glow-card">
+          <div class="icon-wrap">
+            <img src="Whisk_199ec14fb06f88bb8394521bbf823c70eg-removebg-preview.png" alt="Kursy" class="anim-sway">
+          </div>
+        </div>
+        <span class="label">Kursy</span>
+      </a>
+
+      <!-- Newsletter — envelope SVG (swapped to bottom-left) -->
+      <a href="https://newsletter.serioproste.com/" target="_blank" rel="noopener" class="item">
+        <div class="glow-card">
+          <div class="icon-wrap">
+            <svg width="132" height="132" viewBox="0 0 132 132" xmlns="http://www.w3.org/2000/svg" style="filter:saturate(0.55)">
+              <rect x="18" y="40" width="96" height="62" rx="9" fill="white" stroke="#4a3f2e" stroke-width="2"/>
+              <path class="newsletter-flap" d="M18 49 L66 75 L114 49 L114 40 Q114 40 106 40 L26 40 Q18 40 18 40 Z" fill="#F5A623"/>
+              <path class="newsletter-fold" d="M18 49 L66 75 L114 49" stroke="#c47d10" stroke-width="2" fill="none" stroke-linejoin="round"/>
+              <path d="M18 102 L44 78" stroke="#4a3f2e" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+              <path d="M114 102 L88 78" stroke="#4a3f2e" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <span class="label">Newsletter</span>
+      </a>
+
+      <!-- YouTube -->
+      <a href="https://www.youtube.com/@serioproste" target="_blank" rel="noopener" class="item">
+        <div class="glow-card">
+          <div class="icon-wrap">
+            <svg width="132" height="132" viewBox="0 0 132 132" xmlns="http://www.w3.org/2000/svg" style="filter:saturate(0.55)">
+              <rect class="yt-screen" x="18" y="38" width="96" height="60" rx="14" fill="#FF0000"/>
+              <polygon class="yt-play" points="54,50 54,86 90,68" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <span class="label">YouTube</span>
+      </a>
+
+    </div>
+
+    <p class="bio">
+      chcesz pogadać bezpośrednio?<br>
+      napisz na <a href="mailto:hej@serioproste.com" style="color:inherit;font-weight:600;">hej@serioproste.com</a><br>
+      odpisuję na 95% wiadomości.
+    </p>
+
+
+  </div>
+  <script>
+    // Spotlight border — track pointer across all glow cards
+    const glowCards = document.querySelectorAll('.glow-card')
+    document.addEventListener('pointermove', (e) => {
+      glowCards.forEach(card => {
+        card.style.setProperty('--x', e.clientX.toFixed(2))
+        card.style.setProperty('--y', e.clientY.toFixed(2))
+        card.style.setProperty('--xp', (e.clientX / window.innerWidth).toFixed(2))
+        card.style.setProperty('--yp', (e.clientY / window.innerHeight).toFixed(2))
+      })
+    })
+
+    const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*"
+
+    function initLabel(label) {
+      const original = label.textContent.trim()
+      label.dataset.original = original
+      label.style.width = label.offsetWidth + "px"
+      label.style.textAlign = "center"
+      label.innerHTML = original.split("").map(ch =>
+        `<span class="scramble-char">${ch}</span>`
+      ).join("")
+    }
+
+    function scramble(label) {
+      const original = label.dataset.original
+      const spans = label.querySelectorAll(".scramble-char")
+      const duration = original.length * 3
+      let frame = 0
+
+      if (label._scrambleTimer) clearInterval(label._scrambleTimer)
+
+      label._scrambleTimer = setInterval(() => {
+        frame++
+        const revealedCount = Math.floor((frame / duration) * original.length)
+
+        spans.forEach((span, i) => {
+          const ch = original[i]
+          if (ch === " ") { span.textContent = " "; return }
+          if (i < revealedCount) {
+            span.textContent = ch
+            span.classList.remove("scrambling")
+          } else {
+            span.textContent = CHARS[Math.floor(Math.random() * CHARS.length)]
+            span.classList.add("scrambling")
+          }
+        })
+
+        if (frame >= duration) {
+          clearInterval(label._scrambleTimer)
+          spans.forEach((span, i) => {
+            span.textContent = original[i]
+            span.classList.remove("scrambling")
+          })
+        }
+      }, 30)
+    }
+
+    document.querySelectorAll(".label").forEach(initLabel)
+
+    document.querySelectorAll(".item").forEach(item => {
+      const label = item.querySelector(".label")
+      item.addEventListener("mouseenter", () => scramble(label))
+    })
+  </script>
+</body>
+</html>
